@@ -134,6 +134,10 @@ div {
     z-index: 2;
 }
 
+.hold {
+    background-color: #ED553B;
+}
+
 .black {
-/*     background-color: white; */
+    background-color: white;
 }

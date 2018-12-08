@@ -1,4 +1,3 @@
-
 let checkmate = false;
 const board_arr = create2dArray (9,9);
 
@@ -109,7 +108,6 @@ ChessPiece.prototype.moveTo = function (x_new, y_new) {
     }
 };
 
-
 ////////////// CONSTRUCTORS of ALL PIECES /////////////////////
 
 function Pawn(x, y, color) {
@@ -117,7 +115,7 @@ function Pawn(x, y, color) {
     if (color == 'B') { board_arr[x][y] = -1; }
     else {board_arr[x][y] = 1;}
 
-    document.getElementById(y + "_" + x).innerHTML = "P";
+    newPawnToHTML(x, y);
 }
 
 Pawn.prototype = Object.create(ChessPiece.prototype);
@@ -135,6 +133,31 @@ Pawn.prototype.allowedMov = function (x_new, y_new) {
     }
     return false;
 };
+
+function newPawnToHTML(x, y) {
+
+    // this function will create a new element and append it to the this (x,y) cell
+    // with all the necessary attribute to preform drag&drop
+    var thisCell = document.getElementById(y + "_" + x);
+    var para = document.createElement("P");
+    var txt = document.createTextNode("Pa");
+    para.append(txt);
+    para.className = "pawnClass";
+    thisCell.append(para);
+
+
+    var att1 = document.createAttribute("id");
+    att1.value = y + "-" + x;
+    para.setAttributeNode(att1);
+
+    var att2 = document.createAttribute("draggable");
+    att2.value = "true";
+    para.setAttributeNode(att2);
+
+    var att3 = document.createAttribute("ondragstart");
+    att3.value = "drag(event)";
+    para.setAttributeNode(att3);
+}
 
 function King(x, y, color) {
     ChessPiece.call(this, x, y, color);
@@ -290,11 +313,6 @@ function start() {
  }
 
  start();
-
- document.getElementById("board").addEventListener('click', function() {
-     console.log("test");
- })
-
 
 
 // Test
