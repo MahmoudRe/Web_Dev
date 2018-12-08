@@ -1,0 +1,91 @@
+
+* {
+    padding: 0 0 0 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background: #F0F0DF;
+    padding: 20px;
+    text-align: center;
+    color: #2B3A42;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+}
+
+body {
+    background: #2B3A42;
+    color: #F0F0DF;
+    text-align: center;
+    font-size: 30px;
+    font-family: monospace;
+}
+
+.score {
+    position: relative;
+    font-size:60px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 25%;
+    margin: 30px auto;
+    border: 3px solid white;
+    border-radius: 5px;
+}
+
+.uc {
+    background: #FF8F00;
+    border-radius: 5px;
+    font-size: 30%;
+    padding: 3px;
+}
+
+#user {
+    position: absolute;
+    top: 30%;
+    left: -27px;
+}
+
+#comp {
+    position: absolute;
+    top: 30%;
+    right: -32px;
+}
+
+.choises {
+    text-align: center;
+    padding: 20px;
+}
+
+.choise {
+    display: inline-block;
+    text-align: center;
+    padding: 6px;
+    font-size: 30px;
+    border-radius: 6px;
+    background: #3F5866;
+}
+
+.green-glow {
+    background: rgb(66, 199, 110) !important;
+    box-shadow: 0 0 10px rgb(43, 235, 107) !important;
+    color: #F0F0DF !important;
+}
+
+.red-glow {
+    background: rgb(199, 66, 66) !important;
+    box-shadow: 0 0 10px rgb(255, 46, 46) !important;
+    color: #F0F0DF !important;
+}
+
+.choise:hover {
+    color: #3F5866;
+    cursor: pointer;
+    background: #BDD3DE;
+    box-shadow: 0 0 5px rgb(229, 244, 252);
+}
+
+.choise:active {
+    /* background: #f0f0df; */
+    font-size: 29px;
+}
+
