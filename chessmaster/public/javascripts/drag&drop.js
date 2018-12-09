@@ -19,19 +19,34 @@ for (const cell of allCells) {
     cell.addEventListener('dragenter', dragEnter);
     cell.addEventListener('dragleave', dragLeave);
 }
+
+
 function allowDrop(e) {
     // default: refuse drop element in other element, se we prefventDefault ;)
     e.preventDefault();        
 }
 function drag(e) {
-    // e.target = the cell where the element is dropped
+    // e.target = the cell where the element is 
+    // save the id of this for later use in drop()
     e.dataTransfer.setData("targetID", e.target.id);
 }
+
 function drop(e) {
-    e.preventDefault();
+    e.target.classList.remove("hold");  //remove the hovering style
+
+    var newCell_pos = e.target.id;
+    x_new = parseInt(newCell_pos.substring(0,1));
+    y_new = parseInt(newCell_pos.substring(2,3));
+
     var element_id = e.dataTransfer.getData("targetID");
-    e.target.append(document.getElementById(element_id));
-    e.target.classList.remove("hold");
+    let piece = getJsObj(element_id);
+
+    if (piece.allowedMov(x_new, y_new)) {
+        piece.setPosition(x_new, y_new);
+        e.preventDefault(); 
+        var element_id = e.dataTransfer.getData("targetID");
+        e.target.append(document.getElementById(element_id));
+    }
 }
 function dragEnter() {
     this.classList.add("hold");

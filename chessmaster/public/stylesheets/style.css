@@ -110,6 +110,12 @@ div {
     background-color:  #32bac4;
 }
 
+/******* if the piece droppen on top of 
+another piece it will allow the movement */
+.cell p {
+    z-index: 0;
+}
+
 .row_num {
     font-size: 23px;
     color: #32bac4;
@@ -134,10 +140,10 @@ div {
     z-index: 2;
 }
 
-.hold {
-    background-color: #ED553B;
+.black {
+    background-color: #10676d;
 }
 
-.black {
-    background-color: white;
+.hold {
+    background-color: #ED553B;
 }

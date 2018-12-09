@@ -77,15 +77,15 @@ function game(userChoice) {
 function main () {
     rock_div.addEventListener('click', function() {
         game("r");
-    })
+    });
     
     paper_div.addEventListener('click', function(){
         game("p");
-    })
+    });
     
     scissors_div.addEventListener('click', function() {
         game("s");
-    })
+    });
 }
 
 main();
