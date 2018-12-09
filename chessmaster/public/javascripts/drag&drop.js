@@ -33,11 +33,23 @@ function drag(e) {
 function drop(e) {
     e.target.classList.remove("hold");  //remove the hovering style
 
-    var newCell_pos = e.target.id;
-    x_new = parseInt(newCell_pos.substring(0,1));
-    y_new = parseInt(newCell_pos.substring(2,3));
+    let target_cell = e.target;
 
-    var element_id = e.dataTransfer.getData("targetID");
+    let newCell_pos = target_cell.id;
+    let x_new = parseInt(newCell_pos.substring(0,1));
+    let y_new = parseInt(newCell_pos.substring(2,3));
+
+    // check if the e.target is the piece in top of the cell
+    // fix the problem by reassign the variabels to the prober values manualy
+    if (e.target.classList[0] != "cell") {
+        let pawn = getJsObj(e.target.id);
+        x_new = pawn.getPosition()[0];
+        y_new = pawn.getPosition()[1];
+
+        target_cell = document.getElementById(x_new+"_"+y_new);
+    }
+
+    let element_id = e.dataTransfer.getData("targetID");
     let piece = getJsObj(element_id);
 
 
@@ -45,18 +57,28 @@ function drop(e) {
 
         // as long this passed allowedMov test → if there a piece in
         // the given cell, this piece is the rivals' piece, so remove it
-        if (e.target.hasChildNodes()) {
-            e.target.removeChild(e.target.firstChild);
+        if (target_cell.hasChildNodes()) {
+            if (target_cell.firstChild.id == "5-8") {
+                alert("The king is captured. The white wins the game");
+                reomveAllPieces();
+                whiteTurn = true;
+                start();
+                return;
+            }
+            target_cell.removeChild(target_cell.firstChild);
         }
         piece.setPosition(x_new, y_new);
         e.preventDefault(); 
-        e.target.append(document.getElementById(element_id));
+        target_cell.append(document.getElementById(element_id));
     } else {
         // alert("not allowed move");
     }
 }
 function dragEnter() {
     this.classList.add("hold");
+    setTimeout(() => {
+        this.classList.remove("hold");
+    }, 3000);
 }
 function dragLeave() {
     this.classList.remove("hold");
