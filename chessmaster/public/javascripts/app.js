@@ -16,7 +16,7 @@ function isEmpty (x_axis, y_axis) {
     return board_arr[x_axis][y_axis] == 0;
 }
 
-function pieceToHTML(x, y, pieceType) {
+function pieceToHTML(x, y, pieceType, color) {
 
     // this function will create a new element and append it to the correspond div
     // in HTML with all the necessary attributes to preform Drag&Drop
@@ -24,7 +24,7 @@ function pieceToHTML(x, y, pieceType) {
     var para = document.createElement("P");
     var txt = document.createTextNode(pieceType);
     para.append(txt);
-    para.className = pieceType + "_class";
+    para.className = color + "_Class";
     para.id = x + "-" + y;
     thisCell.append(para);
 
@@ -38,6 +38,12 @@ function pieceToHTML(x, y, pieceType) {
     var att2 = document.createAttribute("ondragstart");
     att2.value = "drag(event)";
     para.setAttributeNode(att2);
+}
+
+/****** Not used */
+function pieceCapture(x, y) {
+    var thisCell = document.getElementById(x + "_" + y);
+    thisCell.removeChild(thisCell.firstChild);
 }
 
 // Constructor of the father piece
@@ -135,6 +141,20 @@ ChessPiece.prototype.moveTo = function (x_new, y_new) {
     }
 };
 
+///////////////////// CHECK THE TURN ///////////////////////
+let whiteTurn = true;
+ChessPiece.prototype.allowedTurn = function () {
+    if (whiteTurn && this.color == 'W') {
+        whiteTurn = !whiteTurn;
+        return true;
+    }
+    if (!whiteTurn && this.color == 'B') {
+        whiteTurn = !whiteTurn;
+        return true;
+    }
+    return false;
+};
+
 ////////////// CONSTRUCTORS of ALL PIECES /////////////////////
 
 function Pawn(x, y, color) {
@@ -142,7 +162,7 @@ function Pawn(x, y, color) {
     if (color == 'B') { board_arr[x][y] = -1; }
     else {board_arr[x][y] = 1;}
 
-    pieceToHTML(x, y, "Pa");
+    pieceToHTML(x, y, "Pa", color);
 }
 
 Pawn.prototype = Object.create(ChessPiece.prototype);
@@ -172,7 +192,7 @@ function King(x, y, color) {
     if (color == 'B') { board_arr[x][y] = -6; }
     else {board_arr[x][y] = 6;}
 
-    pieceToHTML(x, y, "K");
+    pieceToHTML(x, y, "K", color);
 }
 
 King.prototype = Object.create(ChessPiece.prototype);
@@ -198,7 +218,7 @@ function Knight (x, y, color) {
     if (color == 'B') { board_arr[x][y] = -2; }
     else {board_arr[x][y] = 2;}
 
-    pieceToHTML(x, y, "Kn");
+    pieceToHTML(x, y, "Kn", color);
 }
 
 Knight.prototype = Object.create(ChessPiece.prototype);
@@ -229,7 +249,7 @@ function Bishop (x, y, color) {
     if (color == 'B') { board_arr[x][y] = -3; }
     else {board_arr[x][y] = 3;}
 
-    pieceToHTML(x, y, "Bi");
+    pieceToHTML(x, y, "Bi", color);
 }
 
 Bishop.prototype = Object.create(ChessPiece.prototype);
@@ -245,7 +265,7 @@ function Rook (x, y, color) {
     if (color == 'B') { board_arr[x][y] = -4; }
     else {board_arr[x][y] = 4;}
 
-    pieceToHTML(x, y, "R");
+    pieceToHTML(x, y, "R", color);
 }
 
 Rook.prototype = Object.create(ChessPiece.prototype);
@@ -261,7 +281,7 @@ function Queen (x, y, color) {
     if (color == 'B') { board_arr[x][y] = -4; }
     else {board_arr[x][y] = 4;}
 
-    pieceToHTML(x, y, "Q");
+    pieceToHTML(x, y, "Q", color);
 }
 
 Queen.prototype = Object.create(ChessPiece.prototype);
@@ -379,10 +399,23 @@ function start() {
     }
  }
 
- let reset_btn = document.getElementById("reset");
+ function reomveAllPieces() {
+     for (let x = 1; x <= 8; x++) {
+        for (let y = 1; y <= 8; y++) {
+            let thisCell = document.getElementById(x+"_"+y);
+            if (thisCell.hasChildNodes()) {
+                thisCell.removeChild(thisCell.firstChild);
+            }
+        }
+     }
+ }
+
+ const reset_btn = document.getElementById("reset");
  reset_btn.addEventListener('click', function() {
+    reomveAllPieces();
     start();
  });
+
 
  
 

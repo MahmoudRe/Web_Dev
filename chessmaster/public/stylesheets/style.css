@@ -144,6 +144,10 @@ another piece it will allow the movement */
     background-color: #10676d;
 }
 
+.B_Class {
+    color: rgb(145, 145, 145);
+}
+
 .hold {
     background-color: #ED553B;
 }

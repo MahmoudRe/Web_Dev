@@ -41,11 +41,19 @@ function drop(e) {
     var element_id = e.dataTransfer.getData("targetID");
     let piece = getJsObj(element_id);
 
-    if (piece.allowedMov(x_new, y_new)) {
+
+    if (piece.allowedMov(x_new, y_new) && piece.allowedTurn()) {
+
+        // as long this passed allowedMov test → if there a piece in
+        // the given cell, this piece is the rivals' piece, so remove it
+        if (e.target.hasChildNodes()) {
+            e.target.removeChild(e.target.firstChild);
+        }
         piece.setPosition(x_new, y_new);
         e.preventDefault(); 
-        var element_id = e.dataTransfer.getData("targetID");
         e.target.append(document.getElementById(element_id));
+    } else {
+        // alert("not allowed move");
     }
 }
 function dragEnter() {
