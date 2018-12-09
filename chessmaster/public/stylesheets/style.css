@@ -92,14 +92,15 @@ div {
 }
 
 .cell {
-    border: 1px solid #32bac4;
+    background-color: rgba(255, 255, 255, 0.178);
+    border: 2px solid #000000;
     width: 70px;
     height: 70px;
-    max-height: 70px;
-    max-width: 70px;
+    max-height: 75px;
+    max-width: 75px;
     float: left;
     margin: 3px;
-/*     transition: all 0.2s ease-in-out; */
+    transition: all 0.2s ease-in-out;
     border-radius: 4px;
 /*     padding: 0 0 0 5px; */
     cursor: pointer;
@@ -107,12 +108,14 @@ div {
 }
 
 .cell:hover {
-    background-color:  #32bac4;
+    background-color:  #797979;
+    border: #ED553B;
 }
 
 /******* if the piece droppen on top of 
 another piece it will allow the movement */
 .cell p {
+    font-size: 50px;
     z-index: 0;
 }
 
@@ -145,7 +148,7 @@ another piece it will allow the movement */
 }
 
 .B_Class {
-    color: rgb(145, 145, 145);
+    color: #F2B134;
 }
 
 .hold {

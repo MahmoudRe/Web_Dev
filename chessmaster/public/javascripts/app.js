@@ -158,11 +158,13 @@ ChessPiece.prototype.allowedTurn = function () {
 ////////////// CONSTRUCTORS of ALL PIECES /////////////////////
 
 function Pawn(x, y, color) {
+    this.first_mov = true;
+    
     ChessPiece.call(this, x, y, color);
     if (color == 'B') { board_arr[x][y] = -1; }
     else {board_arr[x][y] = 1;}
 
-    pieceToHTML(x, y, "Pa", color);
+    pieceToHTML(x, y, "♟", color);
 }
 
 Pawn.prototype = Object.create(ChessPiece.prototype);
@@ -175,7 +177,7 @@ Pawn.prototype.allowedMov = function (x_new, y_new) {
     // * board_arr has negative value for black pieces and vice versa 
     let sign = board_arr[this.x][this.y]/Math.abs(board_arr[this.x][this.y]);
 
-    // check for normal movment
+    // check for normal movement
     if (x_new === this.x && y_new === this.y + sign*1 && isEmpty(x_new,y_new)) {
         return true;
     }
@@ -184,6 +186,13 @@ Pawn.prototype.allowedMov = function (x_new, y_new) {
     if ((x_new === this.x + 1 || x_new === this.x - 1) && y_new === this.y + sign*1) {
         return !isEmpty(x_new,y_new) && !this.isSameColor(x_new, y_new);
     }
+
+    // check for first movement
+    if (x_new === this.x && y_new === this.y + sign*2 && isEmpty(x_new,y_new) && this.first_mov) {
+        this.first_mov = false;
+        return true;
+    }
+
     return false;
 };
 
@@ -192,7 +201,7 @@ function King(x, y, color) {
     if (color == 'B') { board_arr[x][y] = -6; }
     else {board_arr[x][y] = 6;}
 
-    pieceToHTML(x, y, "K", color);
+    pieceToHTML(x, y, "♚", color);
 }
 
 King.prototype = Object.create(ChessPiece.prototype);
@@ -218,7 +227,7 @@ function Knight (x, y, color) {
     if (color == 'B') { board_arr[x][y] = -2; }
     else {board_arr[x][y] = 2;}
 
-    pieceToHTML(x, y, "Kn", color);
+    pieceToHTML(x, y, "♞", color);
 }
 
 Knight.prototype = Object.create(ChessPiece.prototype);
@@ -249,7 +258,7 @@ function Bishop (x, y, color) {
     if (color == 'B') { board_arr[x][y] = -3; }
     else {board_arr[x][y] = 3;}
 
-    pieceToHTML(x, y, "Bi", color);
+    pieceToHTML(x, y, "♝", color);
 }
 
 Bishop.prototype = Object.create(ChessPiece.prototype);
@@ -265,7 +274,7 @@ function Rook (x, y, color) {
     if (color == 'B') { board_arr[x][y] = -4; }
     else {board_arr[x][y] = 4;}
 
-    pieceToHTML(x, y, "R", color);
+    pieceToHTML(x, y, "♜", color);
 }
 
 Rook.prototype = Object.create(ChessPiece.prototype);
@@ -281,7 +290,7 @@ function Queen (x, y, color) {
     if (color == 'B') { board_arr[x][y] = -4; }
     else {board_arr[x][y] = 4;}
 
-    pieceToHTML(x, y, "Q", color);
+    pieceToHTML(x, y, "♛", color);
 }
 
 Queen.prototype = Object.create(ChessPiece.prototype);
@@ -413,6 +422,7 @@ function start() {
  const reset_btn = document.getElementById("reset");
  reset_btn.addEventListener('click', function() {
     reomveAllPieces();
+    whiteTurn = true;
     start();
  });
 

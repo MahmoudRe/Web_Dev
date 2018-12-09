@@ -30,7 +30,6 @@ function drag(e) {
     // save the id of this for later use in drop()
     e.dataTransfer.setData("targetID", e.target.id);
 }
-
 function drop(e) {
     e.target.classList.remove("hold");  //remove the hovering style
 
