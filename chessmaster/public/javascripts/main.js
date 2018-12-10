@@ -1,3 +1,9 @@
+var socket = new WebSocket("ws://localhost:3000");
+socket.onmessage = function(event) {
+    document.getElementById("1_1").innerHTML = event.data;
+};
+
+
 let checkmate = false;
 const board_arr = create2dArray (9,9);
 

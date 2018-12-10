@@ -1,18 +1,36 @@
 var express = require("express");
 var http = require("http");
+
+var indexRouter = require("./routes/index");
+
 var port = process.argv[2];
 var app = express();
 
 app.use(express.static(__dirname + "/public"));
 http.createServer(app).listen(port);
 
-app.get("/", function(req, res) {
-  res.sendFile("splash.html", {root: "./public"});
+app.get("/", indexRouter);
+
+app.get("/game", indexRouter);
+
+var server = http.createServer(app);
+
+var websocket = require("ws");
+const wss = new websocket.Server({server});
+
+wss.on("connection", function(ws) {
+
+  setTimeout(function() {
+    ws.send("thanks for the message. --Your server.");
+    ws. close();
+  }, 2000);
+
+  ws.on("message", function incoming(message) {
+    console.log("[LOG]" + message);
+  });
 });
 
-app.get("/game", function(req, res) {
-  res.sendFile("game.html", {root: "./public"});
-});
+server.listen(port);
 
 
 

@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/chessmaster/public/app.js",
+            "program": "${workspaceFolder}/chessmaster/app.js",
             "cwd": "${workspaceFolder}/chessmaster",
             "args": ["3000"]
         },
