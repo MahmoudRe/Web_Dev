@@ -57,9 +57,17 @@ function drop(e) {
 
         // as long this passed allowedMov test → if there a piece in
         // the given cell, this piece is the rivals' piece, so remove it
+        // if this piece is the king, terminate the game
         if (target_cell.hasChildNodes()) {
             if (target_cell.firstChild.id == "5-8") {
                 alert("The king is captured. The white wins the game");
+                reomveAllPieces();
+                whiteTurn = true;
+                start();
+                return;
+            }
+            if (target_cell.firstChild.id == "5-1") {
+                alert("The king is captured. The black wins the game");
                 reomveAllPieces();
                 whiteTurn = true;
                 start();
