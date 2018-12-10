@@ -78,6 +78,7 @@ function drop(e) {
         piece.setPosition(x_new, y_new);
         e.preventDefault(); 
         target_cell.append(document.getElementById(element_id));
+
     } else {
         // alert("not allowed move");
     }
