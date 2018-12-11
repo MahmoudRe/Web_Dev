@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script>
+    
+    var socket = io();
+
+    socket.on ('msg', onMessage);
+
+    function onMessage(wantedTest) {
+        var list = document.getElementById('list-p');
+        var el = document.createElement('p');
+        el.innerHTML = wantedText;
+        list.appendChild(el);
+    }
+
+    var form = document.getElementById('ch_input');
+    form.addEventListener('submit', function(e) {
+        var input = document.getElementById('ch_input');
+        var value = input.value;
+        input.value = '';
+        onMessage(value);
+        e.preventDefault();
+    });
+    
+    
+    
+    
+    
+    </script>
+</head>
+<body>
+    <form id="ch_input">
+        <p id="list-p"> test 1 </p>
+        <input id="input">
+    </form>
+</body>
+</html>

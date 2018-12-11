@@ -15,20 +15,27 @@ app.get("/game", indexRouter);
 var server = http.createServer(app);
 const wss = new websocket.Server({server});
 
+var p1 = null;
+var p2 = null;
+
 wss.on("connection", function(ws) {
-
-  setTimeout(function() {
-    ws.send("thanks for the message. --Your server.");
-    ws. close();
-  }, 7000);
-
-  ws.on("message", function incoming(message) {
-    console.log("[LOG]" + message);
-  });
+  if ( p1 == null ) { p1 = ws; return; }
+  if ( p2 == null ) { p2 = ws; return; }
+  
+  console.log("[LOG]" + "two players are connected");
 });
 
-ws.onmessage = (msg) => {
-  const message = JSON.parse(msg.data);
+function sendMov () {
+  if ((p1 != null) && (p2 != null)) {
+    p1.onmessage = (msg) => {
+      console.log(msg);
+      // const board_arr2 = JSON.parse(msg)[0] documetn;
+      ws.send("server massege");
+    
+      const board_div =  JSON.parse(msg)[1];
+      // document.getElementById("board").innerHTML = board_div;
+    };
+  }
 }
 
 server.listen(port);

@@ -425,8 +425,6 @@ function start() {
     whiteTurn = true;
     start();
  });
- 
-var boardHTML
 
 
 

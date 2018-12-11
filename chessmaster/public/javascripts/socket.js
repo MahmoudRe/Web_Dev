@@ -4,7 +4,6 @@ socket.onmessage = function (event) {
     document.getElementById("header").innerHTML = event.data;
 };
 socket.onopen = function () {
-    socket.send("Hello from the client!");
-    document.getElementById("header").innerHTML = "Sending a first message to the server ...";
+    let msg = [document.getElementById("board"), board_arr] 
+    socket.send(msg);
 };
-
