@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css?family=Holtwood+One+SC|Suez+One');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background: #068587;
+    text-align: center;
+    font-family: 'Holtwood One SC', serif;
+    font-size: 50px;
+    color: #e7e7e7;
+    padding: 15px;
+}
+
+#logo {
+    width: 50px;
+    vertical-align: sub;
+}
+
+body {
+    background: #112F41;
+    font-family: 'Suez One', serif;
+    text-align: center;
+    font-size: 30px;
+    color: #e7e7e7;
+}
+
+div {
+    margin: 10px;
+}
+
+/* #splash_body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 70vh;
+} */
+
+.statics {
+    font-size: 20px;
+    text-align: justify;
+    color: #fff;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #F2B134;
+    border-radius: 8px;
+}
+
+#head_statics {
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Holtwood One SC', serif;
+    color: #112F41;
+}
+
+.field {
+    display: inline-block;
+    border: none;
+    padding: 10px 20px;
+    background-color: #e7e7e7;
+    font-size: 15px;
+    font-family: 'Suez One', serif;
+    color: #112F41;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    padding: 10px 20px;
+    background-color: #ED553B;
+    font-size: 35px;
+    font-family: 'Suez One', serif;
+    color: #e7e7e7;
+    margin: 15px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+#board {
+    max-height: 704px;
+    max-width: 704px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 50px auto;
+}
+
+.cell {
+    background-color: rgba(255, 255, 255, 0.178);
+    border: 0px solid #ffffff;
+    width: 70px;
+    height: 70px;
+    max-height: 75px;
+    max-width: 75px;
+    float: left;
+    margin: 3px;
+    transition: all 0.2s ease-in-out;
+    border-radius: 4px;
+/*     padding: 0 0 0 5px; */
+    cursor: pointer;
+    z-index: 1;
+}
+
+.cell:hover {
+    background-color:  #797979;
+    border: #ED553B;
+}
+
+/******* if the piece droppen on top of 
+another piece it will allow the movement */
+.cell p {
+    font-size: 50px;
+    z-index: 0;
+}
+
+.row_num {
+    font-size: 23px;
+    color: #32bac4;
+    width: 70px;
+    height: 70px;
+    float: left;
+    margin: 3px;
+    border-radius: 4px;
+    padding: 17px 0 0 50px;
+    z-index: 2;
+}
+
+.column_num {
+    font-size: 23px;
+    color: #32bac4;
+    width: 70px;
+    height: 70px;
+    float: left;
+    margin: 3px;
+    border-radius: 4px;
+    padding: 0 0 0 0px;
+    z-index: 2;
+}
+
+.black {
+    background-color: #10676d;
+}
+
+.B_Class {
+    color: #F2B134;
+}
+
+.hold {
+    background-color: #ED553B;
+}
