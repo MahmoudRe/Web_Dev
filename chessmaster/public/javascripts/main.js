@@ -424,7 +424,6 @@ function start() {
     reomveAllPieces();
     whiteTurn = true;
     start();
+    socket.send(JSON.stringify([playerName, "reset"]));
  });
-
-
 

@@ -39,7 +39,7 @@ function drop(e) {
     let x_new = parseInt(newCell_pos.substring(0,1));
     let y_new = parseInt(newCell_pos.substring(2,3));
 
-    // check if the e.target is the piece in top of the cell
+    // check if the e.target is the piece on top of the cell
     // fix the problem by reassign the variabels to the prober values manualy
     if (e.target.classList[0] != "cell") {
         let pawn = getJsObj(e.target.id);
@@ -64,6 +64,10 @@ function drop(e) {
                 reomveAllPieces();
                 whiteTurn = true;
                 start();
+
+                // send the movment to the other player
+                let dataToSend = ["mov", element_id, x_new, y_new];
+                socket.send(JSON.stringify(dataToSend));
                 return;
             }
             if (target_cell.firstChild.id == "5-1") {
@@ -71,6 +75,10 @@ function drop(e) {
                 reomveAllPieces();
                 whiteTurn = true;
                 start();
+
+                // send the movment to the other player
+                let dataToSend = ["mov", element_id, x_new, y_new];
+                socket.send(JSON.stringify(dataToSend));
                 return;
             }
             target_cell.removeChild(target_cell.firstChild);
@@ -78,6 +86,10 @@ function drop(e) {
         piece.setPosition(x_new, y_new);
         e.preventDefault(); 
         target_cell.append(document.getElementById(element_id));
+
+        // send the movment to the other player
+        let dataToSend = [playerName, "mov", element_id, x_new, y_new];
+        socket.send(JSON.stringify(dataToSend));
 
     } else {
         // alert("not allowed move");
@@ -91,4 +103,41 @@ function dragEnter() {
 }
 function dragLeave() {
     this.classList.remove("hold");
+}
+
+
+function setMov(element_id, x_new, y_new) {
+
+    target_cell = document.getElementById(x_new + "_" + y_new);
+    let piece = getJsObj(element_id);
+    whiteTurn = !whiteTurn;
+
+    // if there a piece in the given cell, this piece is 
+    // the rivals' piece, so remove it
+    // if this piece is the king, terminate the game
+    if (target_cell.hasChildNodes()) {
+        if (target_cell.firstChild.id == "5-8") {
+            alert("The king is captured. The white won");
+            reomveAllPieces();
+            whiteTurn = true;
+            start();
+            return;
+        }
+        if (target_cell.firstChild.id == "5-1") {
+            alert("The king is captured. The black won");
+            reomveAllPieces();
+            whiteTurn = true;
+            start();
+            return;
+        }
+        target_cell.removeChild(target_cell.firstChild);
+    }
+    old_pos = piece.getPosition();  // return an array contain x and y recpectively
+    old_cell = document.getElementById(old_pos[0] + "_" + old_pos[1]);
+    target_cell.append(document.getElementById(element_id));
+    if (old_cell.hasChildNodes()) {
+        old_cell.removeChild(old_cell.firstChild);
+    }
+
+    piece.setPosition(x_new, y_new);
 }
