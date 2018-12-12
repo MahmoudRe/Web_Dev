@@ -351,11 +351,9 @@ function start() {
 
     queen_b = new Queen(4,8, 'B');
     king_b = new King(5,8, 'B');
- }
+}
 
- start();
-
- function getJsObj(id) {
+function getJsObj(id) {
 
     // this function will take the id of HTML element as a string 
     // (typically the id of the corresponed element/piece) and return its JavaScript object
@@ -406,9 +404,9 @@ function start() {
         case "4-8": return queen_b;
         case "5-8": return king_b;
     }
- }
+}
 
- function reomveAllPieces() {
+function reomveAllPieces() {
      for (let x = 1; x <= 8; x++) {
         for (let y = 1; y <= 8; y++) {
             let thisCell = document.getElementById(x+"_"+y);
@@ -417,13 +415,15 @@ function start() {
             }
         }
      }
- }
+}
 
- const reset_btn = document.getElementById("reset");
- reset_btn.addEventListener('click', function() {
+start();
+
+const reset_btn = document.getElementById("reset");
+reset_btn.addEventListener('click', function() {
     reomveAllPieces();
     whiteTurn = true;
     start();
     socket.send(JSON.stringify([playerName, "reset"]));
- });
+});
 

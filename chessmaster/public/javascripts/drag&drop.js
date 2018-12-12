@@ -66,7 +66,7 @@ function drop(e) {
                 start();
 
                 // send the movment to the other player
-                let dataToSend = ["mov", element_id, x_new, y_new];
+                let dataToSend = [playerName, "mov", element_id, x_new, y_new];
                 socket.send(JSON.stringify(dataToSend));
                 return;
             }
@@ -77,7 +77,7 @@ function drop(e) {
                 start();
 
                 // send the movment to the other player
-                let dataToSend = ["mov", element_id, x_new, y_new];
+                let dataToSend = [playerName, "mov", element_id, x_new, y_new];
                 socket.send(JSON.stringify(dataToSend));
                 return;
             }
