@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Splash screen</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/style_splash.css" />
-    <script src="javascripts/main.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/style.css" />
 </head>
 
 <body>
@@ -17,27 +16,27 @@
 
     <div id="splash_body">
 
-        <div id="player_name">
+        <div>
             <label> Player name </label>
             <br>
-            <input type="text" name="Your Name" placeholder="enter your name" class="field">
+            <input id="in_name" type="text" name="Your Name" placeholder="enter your name" class="field">
         </div>
         
         <div>
             <label> Your skill </label>
             <br>
-            <select class="field">
-                <option> Beginner </option>
-                <option> Intermediate </option>
-                <option> Expert </option>
+            <select class="field" id="in_skill">
+                <option value="Beginner"> Beginner </option>
+                <option value="Intermediate"> Intermediate </option>
+                <option value="Expert"> Expert </option>
             </select>
         </div>
         
         <div>
-            <form action="./game">
-                <button class="btn"> Start New Game! </button>
-            </form>
+            <button class="btn" id="gm_start"> Start New Game! </button>
         </div>
+
+        <p id="gameState"> </p>
 
         <div class="statics">
                 <label id="head_statics"> Statics </label> 
@@ -52,6 +51,8 @@
 
     </div>
 
+    <script src="javascripts/socket_splash.js"></script>
+    <!-- <script src="javascripts/main.js"></script> -->
 </body>
 
 </html>

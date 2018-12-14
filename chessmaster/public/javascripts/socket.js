@@ -1,15 +1,21 @@
-var socket = new WebSocket("ws://localhost:3000");
+const socket = new WebSocket("ws://localhost:3000");
 let playerName = "new";
 let oneTimeAccess = true;
 
+/***** WORNING: to modifie later if there is another cookie *****/
+let sessionID = document.cookie.split("=")[1];
+
+
 socket.onmessage = function (event) {
-    document.getElementById("header").innerHTML = event.data;
+    document.getElementById("gameState").innerHTML = event.data;
+    
+    // the structure [sessionID, comand, piece_id, x_new, y_new]
     let msgs = JSON.parse(event.data);
 
     if (oneTimeAccess) {
         playerName = msgs[0];
         oneTimeAccess = false;
-        console.log("player name has been decleared")
+        console.log("player name has been decleared");
     }
 
     if (msgs[1] == "mov") {
@@ -21,10 +27,14 @@ socket.onmessage = function (event) {
         whiteTurn = true;
         start();
     }
+
+    if (msgs[1] == "close") {
+        alert("the rival quit the game, you win!!");
+        window.location.replace("splash.html");
+    }
     
 };
 
-// socket.onopen = function () {
-//     let msg = "new player connected...";
-//     socket.send(msg);
-// };
+socket.onopen = function () {
+    socket.send(JSON.stringify(["sessionID", sessionID]));
+};

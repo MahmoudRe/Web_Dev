@@ -82,15 +82,6 @@ div {
     border-radius: 15px;
 }
 
-#board {
-    max-height: 704px;
-    max-width: 704px;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    margin: 50px auto;
-}
-
 .cell {
     background-color: rgba(255, 255, 255, 0.178);
     border: 0px solid #ffffff;

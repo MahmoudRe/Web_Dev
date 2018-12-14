@@ -66,7 +66,7 @@ function drop(e) {
                 start();
 
                 // send the movment to the other player
-                let dataToSend = [playerName, "mov", element_id, x_new, y_new];
+                let dataToSend = [sessionID, "mov", element_id, x_new, y_new];
                 socket.send(JSON.stringify(dataToSend));
                 return;
             }
@@ -77,7 +77,7 @@ function drop(e) {
                 start();
 
                 // send the movment to the other player
-                let dataToSend = [playerName, "mov", element_id, x_new, y_new];
+                let dataToSend = [sessionID, "mov", element_id, x_new, y_new];
                 socket.send(JSON.stringify(dataToSend));
                 return;
             }
@@ -88,7 +88,7 @@ function drop(e) {
         target_cell.append(document.getElementById(element_id));
 
         // send the movment to the other player
-        let dataToSend = [playerName, "mov", element_id, x_new, y_new];
+        let dataToSend = [sessionID, "mov", element_id, x_new, y_new];
         socket.send(JSON.stringify(dataToSend));
 
     } else {
