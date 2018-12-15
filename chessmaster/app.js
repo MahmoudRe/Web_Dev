@@ -33,30 +33,43 @@ wss.on("connection", function (ws) {
       let msg = JSON.parse(message);
 
       if (games_arr[gameID].gameState == 0) {
+
         // msg structue [splash, sessionID, playerName, skill]
         games_arr[gameID].addPlayer(ws, msg[1], msg[2], msg[3]);
         ws.send("waiting for other player ...");
 
       } else if (games_arr[gameID].gameState == 1) {
-        console.log("the game started!!");
-        games_arr[gameID].addPlayer(ws, msg[1], msg[2], msg[3]);
-        ws.send("start");
-        games_arr[gameID].getOtherByWS(ws).send("start");
+
+        // check if the same player has pressed the btn again!
+        if (msg[1] !== games_arr[gameID].session_w) {
+          console.log("the game started!!");
+          games_arr[gameID].addPlayer(ws, msg[1], msg[2], msg[3]);
+          ws.send("start");
+          games_arr[gameID].getOtherByWS(ws).send("start");
+        }
 
       } else if (games_arr[gameID].gameState == 2) {
         console.log(`--[NEW GAME] new game is created, gameID = ${gameID}`);
         games_arr.push(new Game(++gameID));
         games_arr[gameID].addPlayer(ws, msg[1], msg[2], msg[3]);
       }
+
+
+
     } else if (message.includes("sessionID")) {
       let sessionID = JSON.parse(message)[1];
       if (games_arr[gameID].isWhite(sessionID)) {
         games_arr[gameID].white_ws = ws;
         console.log("white_ws has been updated");
+        ws.send(JSON.stringify([playerName, true])); /////////////////////////////////
       } else {
         games_arr[gameID].black_ws = ws;
         console.log("black_ws has been updated");
+        games_arr[gameID].gameState++;     // give the sign that the game is started
       }
+
+
+
     } else {
       console.log("gamestate: " + ws.readyState);
       let sessionID = JSON.parse(message)[0];
@@ -68,11 +81,11 @@ wss.on("connection", function (ws) {
 
   ws.on("close", function () {
     console.log("closed: " + ws.readyState);
-    if (games_arr[gameID].gameState == 2) {
-      // games_arr[gameID].getOtherByWS(ws).send([sessionID, "close"]);
-      // gameState = -1;
+    let msg = JSON.stringify(["", "close"]);  // let the other player know of closing
+    if (games_arr[gameID].gameState == 3) {
+      games_arr[gameID].getOtherByWS(ws).send(msg); 
+      games_arr[gameID].gameState--;
     }
-    // games_arr[gameID].getOtherByWS(ws).close();
   });
 });
 

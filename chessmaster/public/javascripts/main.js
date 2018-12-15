@@ -40,7 +40,7 @@ function pieceToHTML(x, y, pieceType, color) {
     para.setAttributeNode(att2);
 }
 
-/****** Not used */
+/****** Not used ********/
 function pieceCapture(x, y) {
     var thisCell = document.getElementById(x + "_" + y);
     thisCell.removeChild(thisCell.firstChild);
@@ -145,11 +145,11 @@ ChessPiece.prototype.moveTo = function (x_new, y_new) {
 let whiteTurn = true;
 ChessPiece.prototype.allowedTurn = function () {
     if (whiteTurn && this.color == 'W') {
-        whiteTurn = !whiteTurn;
+        // whiteTurn = !whiteTurn;
         return true;
     }
     if (!whiteTurn && this.color == 'B') {
-        whiteTurn = !whiteTurn;
+        // whiteTurn = !whiteTurn;
         return true;
     }
     return false;
@@ -424,6 +424,6 @@ reset_btn.addEventListener('click', function() {
     reomveAllPieces();
     whiteTurn = true;
     start();
-    socket.send(JSON.stringify([playerName, "reset"]));
+    socket.send(JSON.stringify([sessionID, "reset"]));
 });
 

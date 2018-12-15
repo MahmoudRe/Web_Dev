@@ -14,6 +14,7 @@ socket.onmessage = function (event) {
 
     if (oneTimeAccess) {
         playerName = msgs[0];
+        whiteTurn = msgs[1];
         oneTimeAccess = false;
         console.log("player name has been decleared");
     }
@@ -30,7 +31,7 @@ socket.onmessage = function (event) {
 
     if (msgs[1] == "close") {
         alert("the rival quit the game, you win!!");
-        window.location.replace("splash.html");
+        window.location.href = 'splash.html';
     }
     
 };
