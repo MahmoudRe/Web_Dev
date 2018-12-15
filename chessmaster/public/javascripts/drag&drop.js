@@ -52,8 +52,10 @@ function drop(e) {
     let element_id = e.dataTransfer.getData("targetID");
     let piece = getJsObj(element_id);
 
+    /****** first mov pawn problem! fixed by setting allowedMov and allowedTurn test as the last test ***/
+    if ( wsTurn && piece.allowedTurn() && piece.allowedMov(x_new, y_new)) {
 
-    if (piece.allowedMov(x_new, y_new) && piece.allowedTurn()) {
+        whiteTurn = !whiteTurn;
 
         // as long this passed allowedMov test → if there a piece in
         // the given cell, this piece is the rivals' piece, so remove it
@@ -87,6 +89,8 @@ function drop(e) {
         e.preventDefault(); 
         target_cell.append(document.getElementById(element_id));
 
+        wsTurn = !wsTurn;
+
         // send the movment to the other player
         let dataToSend = [sessionID, "mov", element_id, x_new, y_new];
         socket.send(JSON.stringify(dataToSend));
@@ -111,6 +115,7 @@ function setMov(element_id, x_new, y_new) {
     target_cell = document.getElementById(x_new + "_" + y_new);
     let piece = getJsObj(element_id);
     whiteTurn = !whiteTurn;
+    wsTurn = !wsTurn;
 
     // if there a piece in the given cell, this piece is 
     // the rivals' piece, so remove it

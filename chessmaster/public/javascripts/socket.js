@@ -1,6 +1,7 @@
 const socket = new WebSocket("ws://localhost:3000");
 let playerName = "new";
 let oneTimeAccess = true;
+let wsTurn = false;
 
 /***** WORNING: to modifie later if there is another cookie *****/
 let sessionID = document.cookie.split("=")[1];
@@ -16,7 +17,7 @@ socket.onmessage = function (event) {
         playerName = msgs[0];
         document.getElementById("p1_name").innerHTML = playerName;
 
-        whiteTurn = msgs[1];
+        wsTurn = msgs[1];
         oneTimeAccess = false;
         console.log("player name has been decleared");
     }
