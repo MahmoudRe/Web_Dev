@@ -145,11 +145,11 @@ ChessPiece.prototype.moveTo = function (x_new, y_new) {
 let whiteTurn = true;
 ChessPiece.prototype.allowedTurn = function () {
     if (whiteTurn && this.color == 'W') {
-        // whiteTurn = !whiteTurn;
+        whiteTurn = !whiteTurn;
         return true;
     }
     if (!whiteTurn && this.color == 'B') {
-        // whiteTurn = !whiteTurn;
+        whiteTurn = !whiteTurn;
         return true;
     }
     return false;

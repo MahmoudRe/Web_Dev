@@ -46,6 +46,8 @@ wss.on("connection", function (ws) {
           games_arr[gameID].addPlayer(ws, msg[1], msg[2], msg[3]);
           ws.send("start");
           games_arr[gameID].getOtherByWS(ws).send("start");
+        } else {
+          // ws.send("Waiting for other player... \nplease be patient!");
         }
 
       } else if (games_arr[gameID].gameState == 2) {
@@ -57,15 +59,23 @@ wss.on("connection", function (ws) {
 
 
     } else if (message.includes("sessionID")) {
+      
       let sessionID = JSON.parse(message)[1];
+      
       if (games_arr[gameID].isWhite(sessionID)) {
-        games_arr[gameID].white_ws = ws;
+        
+        //reassign to the new websocket (ws for game.html)
+        games_arr[gameID].white_ws = ws;      
         console.log("white_ws has been updated");
-        ws.send(JSON.stringify([playerName, true])); /////////////////////////////////
+
+        //send the playerName and if the turn of this player information
+        ws.send(JSON.stringify([games_arr[gameID].plyr_w, true]));
+      
       } else {
         games_arr[gameID].black_ws = ws;
         console.log("black_ws has been updated");
         games_arr[gameID].gameState++;     // give the sign that the game is started
+        ws.send(JSON.stringify([games_arr[gameID].plyr_b, false]));
       }
 
 

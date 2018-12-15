@@ -14,6 +14,8 @@ socket.onmessage = function (event) {
 
     if (oneTimeAccess) {
         playerName = msgs[0];
+        document.getElementById("p1_name").innerHTML = playerName;
+
         whiteTurn = msgs[1];
         oneTimeAccess = false;
         console.log("player name has been decleared");
@@ -21,17 +23,18 @@ socket.onmessage = function (event) {
 
     if (msgs[1] == "mov") {
         setMov(msgs[2], msgs[3], msgs[4]);
-    }
-
-    if (msgs[1] == "reset") {
+    
+    } else if (msgs[1] == "reset") {
         reomveAllPieces();
         whiteTurn = true;
         start();
-    }
-
-    if (msgs[1] == "close") {
+    
+    } else if (msgs[1] == "close") {
         alert("the rival quit the game, you win!!");
         window.location.href = 'splash.html';
+    
+    } else {
+
     }
     
 };
