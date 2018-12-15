@@ -18,7 +18,7 @@ app.get("/", indexRouter);
 app.get("/game", indexRouter);
 
 const server = http.createServer(app);
-const wss = new websocket.Server({ server });
+const wss = new websocket.Server({server});
 
 var games_arr = []; //property websocket, value:game
 var gameID = 0;
@@ -29,25 +29,28 @@ wss.on("connection", function (ws) {
 
   ws.on("message", function incoming(message) {
 
+    //*  THE MSG FROM SPLASH.HTML WHEN PLAYER HIT "START"  *//
+    //     msg = [splash, sessionID, playerName, skill]     //
+    //          >>> add new player to the game <<<          //
     if (message.includes("splash")) {
       let msg = JSON.parse(message);
 
       if (games_arr[gameID].gameState == 0) {
-
-        // msg structue [splash, sessionID, playerName, skill]
-        games_arr[gameID].addPlayer(ws, msg[1], msg[2], msg[3]);
+        games_arr[gameID].addPlayer(ws, msg[1], msg[2], msg[3]); 
         ws.send("waiting for other player ...");
 
-      } else if (games_arr[gameID].gameState == 1) {
+      } else if (games_arr[gameID].gameState == 1) { 
 
         // check if the same player has pressed the btn again!
         if (msg[1] !== games_arr[gameID].session_w) {
+
           console.log("the game started!!");
           games_arr[gameID].addPlayer(ws, msg[1], msg[2], msg[3]);
           ws.send("start");
           games_arr[gameID].getOtherByWS(ws).send("start");
+
         } else {
-          // ws.send("Waiting for other player... \nplease be patient!");
+          ws.send("Still waiting for the other player... \nplease be patient!");
         }
 
       } else if (games_arr[gameID].gameState == 2) {
@@ -55,11 +58,12 @@ wss.on("connection", function (ws) {
         games_arr.push(new Game(++gameID));
         games_arr[gameID].addPlayer(ws, msg[1], msg[2], msg[3]);
       }
-
-
-
-    } else if (message.includes("sessionID")) {
-      
+    } 
+    
+    //**      THE FIRST MSG FROM GAME.HTML WHEN PAGE LOAD      **//
+    //              msg = ["sessionID", sessionID]               //
+    //     >>> identify this player and send players info <<<    //
+    else if (message.includes("sessionID")) {
       let sessionID = JSON.parse(message)[1];
       
       if (games_arr[gameID].isWhite(sessionID)) {
@@ -67,38 +71,52 @@ wss.on("connection", function (ws) {
         //reassign to the new websocket (ws for game.html)
         games_arr[gameID].white_ws = ws;      
         console.log("white_ws has been updated");
-
-        //send the playerName and if the turn of this player information
-        ws.send(JSON.stringify([games_arr[gameID].plyr_w, true]));
+ 
+        //send this player's name, the 2nd player name's and the turn
+        //to presive the uniform structure of msg, we set the comand in the msg[1]
+        ws.send(JSON.stringify(["", "info", games_arr[gameID].plyr_w, games_arr[gameID].plyr_b, true]));
       
       } else {
         games_arr[gameID].black_ws = ws;
         console.log("black_ws has been updated");
-        games_arr[gameID].gameState++;     // give the sign that the game is started
-        ws.send(JSON.stringify([games_arr[gameID].plyr_b, false]));
+
+        //send this player's name, the 2nd player's name and the turn
+        ws.send(JSON.stringify(["", "info", games_arr[gameID].plyr_b, games_arr[gameID].plyr_w, false]));
+
+        games_arr[gameID].gameState++;   // gameState = 3, the game started
       }
-
-
-
-    } else {
-      console.log("gamestate: " + ws.readyState);
-      let sessionID = JSON.parse(message)[0];
-      // msg structure [sessionID, piece-id, x_new, y_new]
-      console.log("LOG: " + message);
-      games_arr[gameID].getOtherWS(sessionID).send(message);
+    } 
+    
+    //***  THE MSG FROM GAME.HTML WHEN PLAYER MAKE MOV  ***//
+    //      msg = [sessionID, piece-id, x_new, y_new]      //
+    //   >>> RESEND THIS MESSAGE TO THE OTHER PLAYER <<<   //
+    else {
+      
+      let sessionID = JSON.parse(message)[0];                   
+      games_arr[gameID].getOtherWS(sessionID).send(message); 
+      
+      console.log("LOG: " + message);     
     }
   });
 
   ws.on("close", function () {
-    console.log("closed: " + ws.readyState);
+
     let msg = JSON.stringify(["", "close"]);  // let the other player know of closing
     if (games_arr[gameID].gameState == 3) {
       games_arr[gameID].getOtherByWS(ws).send(msg); 
       games_arr[gameID].gameState--;
+    } 
+    
+    else if (games_arr[gameID].gameState == 1) {
+      // if there was just one player make this gameState = 2
+      // therefore new players will begin new game according to game logic above
+      games_arr[gameID].gameState++;
+    
+    
     }
+
+    console.log("the game closed succesfully, ws_state= " + ws.readyState);
   });
 });
 
 server.listen(port);
-
-

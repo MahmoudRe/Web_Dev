@@ -9,14 +9,16 @@
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/style_game.css" />
 </head>
 
-<body>
+<body id="body">
     <header id="header">
         Chess
         <img src="./images/strategy.svg" id="logo">
         Master
-        <br>
-        <p id="p1_name"></p> vs <p id="p2_name"></p>
     </header>
+
+    <div id="p_names">
+        <span id="p1_name"> Player1 </span> vs <span id="p2_name"> Player 2</span>
+    </div>
 
     <div id = "board">
         <div class="row_num">8</div>
@@ -114,6 +116,10 @@
 
     <div >
         <button class= "btn" id = "reset"> reset </button>
+    </div>
+
+    <div >
+        <button class= "btn" id = "fullscreen" onclick="fullScreen()"> Full Screen </button>
     </div>
 
     <script src="javascripts/socket.js"></script>

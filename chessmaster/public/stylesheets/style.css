@@ -14,11 +14,6 @@ header {
     padding: 15px;
 }
 
-#logo {
-    width: 50px;
-    vertical-align: sub;
-}
-
 body {
     background: #112F41;
     font-family: 'Suez One', serif;
@@ -27,18 +22,14 @@ body {
     color: #e7e7e7;
 }
 
-div {
-    margin: 10px;
+#logo {
+    width: 50px;
+    vertical-align: sub;
 }
 
-/* #splash_body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 70vh;
-} */
+div {
+    margin: 5px;
+}
 
 .statics {
     font-size: 20px;
@@ -82,9 +73,22 @@ div {
     border-radius: 15px;
 }
 
+.btn:hover {
+    font-size: 130%;
+    transition: all 0.1s ease-in-out;
+    background-color: rgb(167, 60, 41);
+}
+
+.btn:active {
+    font-size: 130%;
+    transition: all 0.1s ease-in-out;
+    background-color: #F2B134;
+}
+
+
+
 .cell {
     background-color: rgba(255, 255, 255, 0.178);
-    border: 0px solid #ffffff;
     width: 70px;
     height: 70px;
     max-height: 75px;
@@ -93,21 +97,21 @@ div {
     margin: 3px;
     transition: all 0.2s ease-in-out;
     border-radius: 4px;
-/*     padding: 0 0 0 5px; */
-    cursor: pointer;
     z-index: 1;
 }
 
 .cell:hover {
+    cursor: grab;
     background-color:  #797979;
     border: #ED553B;
 }
 
-/******* if the piece droppen on top of 
-another piece it will allow the movement */
+.cell p:active {
+    cursor: grabbing;
+}
+
 .cell p {
     font-size: 50px;
-    z-index: 0;
 }
 
 .row_num {
@@ -144,4 +148,38 @@ another piece it will allow the movement */
 
 .hold {
     background-color: #ED553B;
+}
+
+@keyframes p1_an {
+    0%   {left: 0px;}
+    100% {left: 10px;}
+  }
+
+#p1_name:hover::after {
+    position: relative;
+    content: "🤜";
+    animation-name: p1_an;
+    animation-duration: 0.2s;
+    transition: all 0.5s ease-in-out;
+}
+
+#p2_name:hover::before {
+    content: "🤛";
+}
+
+#p_names {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0px 20px;
+    font-size: 30px;
+    margin-top: 20px;
+    background-color: #ED553B;
+    border: #e7e7e7;
+    border-radius: 50px;
+}
+
+@media only screen and (max-width: 740px) {
+    .cell {
+        background-color: rgb(128, 19, 19);
+    }
 }

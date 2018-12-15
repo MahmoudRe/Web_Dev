@@ -27,10 +27,6 @@ socket.onmessage = function (event) {
     if (event.data == "start") {
         window.location.replace("game.html");
     }
-
-    if(event.data == "close") {
-        
-    }
 };
 
 // socket.onopen = function () {

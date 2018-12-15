@@ -53,10 +53,10 @@ Game.prototype.isWhite = function (sessionID) {
   return new Error("sessionID isn't well defiened");
 };
 
-Game.prototype.isWhiteByWS = function (sessionID) {
+Game.prototype.isWhiteByWS = function (ws) {
   if (ws === this.white_ws) { return true; }
   if (ws === this.black_ws) { return false; }
-  return new Error("sessionID isn't well defiened");
+  return new Error("ws isn't any one of these in this game");
 };
 
 Game.prototype.getOtherWS = function (sessionID) {

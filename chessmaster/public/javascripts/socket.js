@@ -1,43 +1,42 @@
 const socket = new WebSocket("ws://localhost:3000");
-let playerName = "new";
-let oneTimeAccess = true;
+let playerName = "You";
+let otherPlayerName = "Someone!";
 let wsTurn = false;
 
-/***** WORNING: to modifie later if there is another cookie *****/
+/***** WORNING: this will not working if there is another cookie *****/
 let sessionID = document.cookie.split("=")[1];
 
 
 socket.onmessage = function (event) {
     document.getElementById("gameState").innerHTML = event.data;
-    
-    // the structure [sessionID, comand, piece_id, x_new, y_new]
+
     let msgs = JSON.parse(event.data);
 
-    if (oneTimeAccess) {
-        playerName = msgs[0];
-        document.getElementById("p1_name").innerHTML = playerName;
-
-        wsTurn = msgs[1];
-        oneTimeAccess = false;
-        console.log("player name has been decleared");
-    }
-
-    if (msgs[1] == "mov") {
+    if (msgs[1] == "mov") {             // msg = [sessionID, comand, piece_id, x_new, y_new]
         setMov(msgs[2], msgs[3], msgs[4]);
-    
-    } else if (msgs[1] == "reset") {
+
+
+    } else if (msgs[1] == "reset") {     // msg = ["", comand]
         reomveAllPieces();
         whiteTurn = true;
         start();
-    
-    } else if (msgs[1] == "close") {
+
+
+    } else if (msgs[1] == "info") {
+        playerName = msgs[2];
+        document.getElementById("p1_name").innerHTML = playerName;
+
+        playerName = msgs[3];
+        document.getElementById("p2_name").innerHTML = playerName;
+
+        wsTurn = msgs[4];
+
+
+    } else if (msgs[1] == "close") {     // msg = ["", comand]
         alert("the rival quit the game, you win!!");
         window.location.href = 'splash.html';
     
-    } else {
-
-    }
-    
+    } else {}
 };
 
 socket.onopen = function () {

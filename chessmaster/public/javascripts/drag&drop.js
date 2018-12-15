@@ -25,11 +25,15 @@ function allowDrop(e) {
     // default: refuse drop element in other element, se we prefventDefault ;)
     e.preventDefault();        
 }
+
+
 function drag(e) {
     // e.target = the cell where the element is 
     // save the id of this for later use in drop()
     e.dataTransfer.setData("targetID", e.target.id);
 }
+
+
 function drop(e) {
     e.target.classList.remove("hold");  //remove the hovering style
 
@@ -145,4 +149,18 @@ function setMov(element_id, x_new, y_new) {
     }
 
     piece.setPosition(x_new, y_new);
+}
+
+
+
+function fullScreen () {
+    var el = document.getElementById('body');
+
+    // use necessary prefixed versions
+    el.webkitRequestFullscreen();
+    el.mozRequestFullScreen();
+    el.msRequestFullscreen();
+
+    // finally the standard version
+    el.requestFullscreen(); 
 }
