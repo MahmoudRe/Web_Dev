@@ -85,35 +85,6 @@ div {
     background-color: #F2B134;
 }
 
-
-
-.cell {
-    background-color: rgba(255, 255, 255, 0.178);
-    width: 70px;
-    height: 70px;
-    max-height: 75px;
-    max-width: 75px;
-    float: left;
-    margin: 3px;
-    transition: all 0.2s ease-in-out;
-    border-radius: 4px;
-    z-index: 1;
-}
-
-.cell:hover {
-    cursor: grab;
-    background-color:  #797979;
-    border: #ED553B;
-}
-
-.cell p:active {
-    cursor: grabbing;
-}
-
-.cell p {
-    font-size: 50px;
-}
-
 .row_num {
     font-size: 23px;
     color: #32bac4;
@@ -138,48 +109,11 @@ div {
     z-index: 2;
 }
 
-.black {
-    background-color: #10676d;
-}
-
-.B_Class {
-    color: #F2B134;
-}
-
-.hold {
-    background-color: #ED553B;
-}
-
 @keyframes p1_an {
-    0%   {left: 0px;}
-    100% {left: 10px;}
-  }
-
-#p1_name:hover::after {
-    position: relative;
-    content: "🤜";
-    animation-name: p1_an;
-    animation-duration: 0.2s;
-    transition: all 0.5s ease-in-out;
-}
-
-#p2_name:hover::before {
-    content: "🤛";
-}
-
-#p_names {
-    display: inline-block;
-    cursor: pointer;
-    padding: 0px 20px;
-    font-size: 30px;
-    margin-top: 20px;
-    background-color: #ED553B;
-    border: #e7e7e7;
-    border-radius: 50px;
-}
-
-@media only screen and (max-width: 740px) {
-    .cell {
-        background-color: rgb(128, 19, 19);
+    0% {
+        left: 0px;
+    }
+    100% {
+        left: 10px;
     }
 }

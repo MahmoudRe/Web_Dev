@@ -12,15 +12,14 @@
 <body id="body">
     <header id="header">
         Chess
-        <img src="./images/strategy.svg" id="logo">
-        Master
+        <img src="./images/strategy.svg" id="logo"> Master
     </header>
 
     <div id="p_names">
         <span id="p1_name"> Player1 </span> vs <span id="p2_name"> Player 2</span>
     </div>
 
-    <div id = "board">
+    <div id="board">
         <div class="row_num">8</div>
         <div class="cell" id="1_8"></div>
         <div class="cell black" id="2_8"></div>
@@ -101,7 +100,7 @@
         <div class="cell black" id="7_1"></div>
         <div class="cell" id="8_1"></div>
 
-        <div class="column_num" ></div>
+        <div class="column_num"></div>
         <div class="column_num" id="a">a</div>
         <div class="column_num" id="b">b</div>
         <div class="column_num" id="c">c</div>
@@ -112,15 +111,22 @@
         <div class="column_num" id="h">h</div>
     </div>
 
-    <p id="gameState"> </p>
-
-    <div >
-        <button class= "btn" id = "reset"> reset </button>
+    <div class="statics">
+        <p id="head_statics"> GameLog </p>
+        <ul id="gameState">
+            <li>game is started</li>
+            <li>mov 2e 3e</li>
+            <li>mov 2a 4a</li>
+        </ul>
     </div>
 
-    <div >
-        <button class= "btn" id = "fullscreen" onclick="fullScreen()"> Full Screen </button>
-    </div>
+    <span>
+        <button class="btn" id="reset"> reset </button>
+    </span>
+
+    <span>
+        <button class="btn" id="fullscreen" onclick="fullScreen()"> ⛶ </button>
+    </span>
 
     <script src="javascripts/socket.js"></script>
     <script src="javascripts/main.js"></script>

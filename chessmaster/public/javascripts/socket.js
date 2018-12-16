@@ -7,16 +7,25 @@ let wsTurn = false;
 let sessionID = document.cookie.split("=")[1];
 
 
-socket.onmessage = function (event) {
-    document.getElementById("gameState").innerHTML = event.data;
+socket.onmessage = function(event) {
+    let gameState = document.getElementById("gameState");
+    let log = document.createElement("LI");
+    let text = document.createTextNode(event.data);
+
+    gameState.removeChild(gameState.firstChild);
+
+    log.appendChild(text);
+    gameState.appendChild(log);
+
+
 
     let msgs = JSON.parse(event.data);
 
-    if (msgs[1] == "mov") {             // msg = [sessionID, comand, piece_id, x_new, y_new]
+    if (msgs[1] == "mov") { // msg = [sessionID, comand, piece_id, x_new, y_new]
         setMov(msgs[2], msgs[3], msgs[4]);
 
 
-    } else if (msgs[1] == "reset") {     // msg = ["", comand]
+    } else if (msgs[1] == "reset") { // msg = ["", comand]
         reomveAllPieces();
         whiteTurn = true;
         start();
@@ -32,13 +41,13 @@ socket.onmessage = function (event) {
         wsTurn = msgs[4];
 
 
-    } else if (msgs[1] == "close") {     // msg = ["", comand]
+    } else if (msgs[1] == "close") { // msg = ["", comand]
         alert("the rival quit the game, you win!!");
         window.location.href = 'splash.html';
-    
+
     } else {}
 };
 
-socket.onopen = function () {
+socket.onopen = function() {
     socket.send(JSON.stringify(["sessionID", sessionID]));
 };
