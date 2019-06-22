@@ -43,20 +43,20 @@ wss.on("connection", function(ws) {
 
             if (games_arr[gameID].gameState == 0) {
                 games_arr[gameID].addPlayer(ws, msg[1], msg[2], msg[3]);
-                ws.send("waiting for other player ...");
+                ws.send("Waiting for an opponent ...");
 
             } else if (games_arr[gameID].gameState == 1) {
 
                 // check if the same player has pressed the btn again!
                 if (msg[1] !== games_arr[gameID].session_w) {
 
-                    console.log("the game started!!");
+                    console.log("The game is started!!");
                     games_arr[gameID].addPlayer(ws, msg[1], msg[2], msg[3]);
                     ws.send("start");
                     games_arr[gameID].getOtherByWS(ws).send("start");
 
                 } else {
-                    ws.send("Still waiting for the other player... \nplease be patient!");
+                    ws.send("Still waiting for an opponent ...");
                 }
 
             } else if (games_arr[gameID].gameState == 2) {
