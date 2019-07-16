@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> JS Clock </title>
+    </head>
+
+    <body>
+        <div>
+            <div>
+                <div class="hand hour-hand"></div>
+                <div class="hand mis-hand"></div>
+                <div class="hand sec-hand"></div>
+            </div> 
+        </div>
+
+        <style>
+            .hand {
+                width: 50%;
+                height: 6px;
+                background: black;
+                position: absolute;
+                top: 50%;
+                transform-origin: 100%;
+                transform: rotate(90deg);
+                transition: all 0.5s;
+            }
+        </style>
+    </body>
+</html>
