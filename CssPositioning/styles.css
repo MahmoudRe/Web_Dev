@@ -1,0 +1,45 @@
+.parent {
+   position: relative;
+   height: 200vh;
+}
+
+.child-one {
+    /************     relative positioning     **************/
+    /* the same as static but with (top, buttom, left, right)
+        which will move the element and remove it from DOC flow
+        so it will overflow the elements below it ==> not useful */
+    position: relative;
+    top: 10px;
+    left: 15px;
+    right: 15px;
+}
+
+.child-two {
+    /************     absolute positioning     **************/
+    /* useful when you want to stick element in position and not moving
+        if the parent is "relative" positioned, then the position of this
+        element relativly to parent positioning.
+        Ex: if the parent "top: 10px" and this element is also "top: 5px"
+        then the result will be 20px from the top of the page */
+    position: absolute;
+    top: 5px;
+    left: 15px;
+}
+
+.child-three {
+    /************      fixed positioning      **************/
+    /* stay on the specified place in the page even after scrolling
+        this will overflow other elements, while "absolute" doesn't do that */
+    position: fixed;
+    top: 0px;
+    right: 0px;
+}
+
+.child-four {
+    /************      sticky positioning      **************/
+    /* compination of relative position and fixed position
+        before scrolling it will be relative positioned
+        as soon as we hit the top of the page it will fix in its place */
+    position: sticky;
+    top: 5px; /* react as fixed position when hits 5px from the top of the screen*/
+}
