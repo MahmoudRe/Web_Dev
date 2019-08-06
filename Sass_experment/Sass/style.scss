@@ -1,0 +1,10 @@
+@import "./variables";
+@import "./header";
+.contact {
+    //call minin function with @include
+    @include flexcenter(row, red);
+    //inherits all the properties from header
+    @extend header;
+    //can overwrite the properties by given another value here
+    background: $primaryBtn;
+}

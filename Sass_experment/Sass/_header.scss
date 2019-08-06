@@ -1,0 +1,24 @@
+//mixin is like a function with parameters and can be called anywhere
+@mixin flexcenter($direction, $background) {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+    background: $background;
+}
+
+header {
+    @include flexcenter(column, blue);
+    background: $primaryBtn;
+    //nested class
+    button {
+        background: $buttonColor;
+        &:hover {
+            background-color: lightcoral;
+        }
+        &::after {
+            content: "Hiiiii";
+        }
+    }
+}
